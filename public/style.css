@@ -6,7 +6,7 @@ body {
     margin: 0;
 }
 
-/* 其他 CSS 保持不变 */
+/* --- 核心布局修改 --- */
 .container {
     display: flex;
     gap: 2rem;
@@ -25,6 +25,7 @@ body {
     gap: 2rem;
 }
 
+/* --- 主内容区样式 --- */
 .main-content {
     width: 100%;
 }
@@ -79,6 +80,7 @@ body {
     transition: opacity 0.3s ease-in-out;
 }
 
+/* --- 按钮样式 --- */
 button {
     padding: 0.75rem 1.5rem;
     border: none;
@@ -129,6 +131,7 @@ button:disabled {
     padding-bottom: 1rem;
 }
 
+/* --- 右侧边栏样式 --- */
 .history-sidebar {
     flex-basis: 320px;
     flex-shrink: 0;
@@ -207,6 +210,7 @@ button:disabled {
 }
 
 
+/* --- iFrame 图谱样式 --- */
 #graph-iframe-wrapper {
     background: white;
     padding: 1.5rem 2rem 2rem 2rem;
@@ -231,10 +235,12 @@ button:disabled {
 }
 
 
+/* --- 通用工具类 --- */
 .hidden {
     display: none !important;
 }
 
+/* --- 底部链接样式 (最终版 - 紧密挨着，背景统一) --- */
 .footer-links {
     color: #555;
     padding: 2rem 0;
@@ -284,6 +290,7 @@ button:disabled {
     width: 100%;
 }
 
+/* 响应式调整 */
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
@@ -300,6 +307,9 @@ button:disabled {
         width: 100%;
         max-height: none;
         margin-bottom: 0;
+        /* 关键：添加 box-sizing: border-box; */
+        box-sizing: border-box;
+        /* 让 padding 包含在 100% 宽度内 */
     }
 
     .footer-links .links-wrapper {
