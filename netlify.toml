@@ -1,0 +1,15 @@
+[build]
+  # 我们的前端文件都在 public 目录，不需要额外的构建命令
+  command = ""
+  # 部署这个文件夹里的静态内容
+  publish = "public"
+  # 告诉 Netlify 我们的云函数在哪里
+  functions = "netlify/functions"
+
+[[redirects]]
+  # 将所有发往 /api/words 的请求
+  from = "/api/words"
+  # 转交给我们的云函数处理
+  to = "/.netlify/functions/words"
+  # 状态码 200 表示这是一个内部重写，而不是浏览器重定向
+  status = 200
