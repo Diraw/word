@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>背单词测试网站</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="left-column">
+            <main class="main-content">
+                <div class="controls-panel">
+                    <h2>开始新一轮</h2>
+                    <div class="start-form">
+                        <label for="round-size">每轮单词数：</label>
+                        <input type="number" id="round-size" value="10" min="1">
+                        <button id="start-btn">开始学习</button>
+                    </div>
+                </div>
+
+                <div id="flashcard-container" class="hidden">
+                    <div class="card">
+                        <h1 id="word-display">Word</h1>
+                        <p id="meaning-display" class="hidden">Meaning</p>
+                    </div>
+                    <div class="button-grid">
+                        <div class="button-column">
+                            <button id="prev-btn">上一个</button>
+                            <button id="new-round-btn" class="hidden">再来一轮</button>
+                        </div>
+                        <span id="progress-indicator">1 / 10</span>
+                        <div class="button-column">
+                            <button id="next-btn">下一个</button>
+                            <button id="reveal-btn">显示/隐藏释义</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <div id="graph-iframe-wrapper">
+                <h3>词源文档</h3>
+                <iframe id="word-graph-iframe" src="https://word.wiki.diraw.top/" frameborder="0" title="词源文档">
+                </iframe>
+            </div>
+        </div>
+
+        <aside class="history-sidebar">
+            <h3>学习记录</h3>
+            <div id="history-list">
+                <p class="no-history">暂无记录</p>
+            </div>
+            <div id="history-pagination" class="hidden">
+                <button id="history-prev-btn">&lt; 上一页</button>
+                <span id="history-page-indicator"></span>
+                <button id="history-next-btn">下一页 &gt;</button>
+            </div>
+        </aside>
+
+    </div>
+
+    <script src="script.js" defer></script>
+</body>
+
+</html>

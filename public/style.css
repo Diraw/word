@@ -1,0 +1,260 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f4f7f9;
+    color: #333;
+    margin: 0;
+}
+
+/* --- 核心布局修改 --- */
+.container {
+    display: flex;
+    gap: 2rem;
+    /* 两栏之间的间距 */
+    width: 95%;
+    max-width: 1200px;
+    /* 限制最大宽度，优化大屏幕体验 */
+    margin: 0 auto;
+    /* 页面居中 */
+    padding: 2rem 0;
+    /* 上下留白 */
+    align-items: flex-start;
+    /* 关键：让两栏顶部对齐 */
+}
+
+.left-column {
+    flex: 1;
+    /* 让左栏占据所有剩余空间 */
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    /* 单词卡片和图谱之间的垂直间距 */
+}
+
+/* --- 主内容区样式 --- */
+.main-content {
+    width: 100%;
+}
+
+.controls-panel,
+#flashcard-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+.start-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+#round-size {
+    width: 60px;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.card {
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 1.5rem;
+}
+
+#word-display {
+    font-size: 3.5rem;
+    /* 稍微调大一点 */
+    font-weight: bold;
+    color: #1a237e;
+    margin: 0;
+}
+
+#meaning-display {
+    font-size: 1.5rem;
+    color: #555;
+    margin-top: 1rem;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* --- 按钮样式 --- */
+button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #3f51b5;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    min-width: 140px;
+    text-align: center;
+}
+
+button:hover {
+    background-color: #303f9f;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.button-grid {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 1.5rem;
+}
+
+.button-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* 交换“上一个”和“再来一轮”按钮的顺序 */
+#prev-btn {
+    order: 2;
+}
+
+#new-round-btn {
+    order: 1;
+}
+
+#progress-indicator {
+    font-weight: 500;
+    color: #777;
+    padding-bottom: 1rem;
+    /* 调整位置 */
+}
+
+/* --- 右侧边栏样式 --- */
+.history-sidebar {
+    flex-basis: 320px;
+    /* 固定宽度 */
+    flex-shrink: 0;
+    /* 防止被压缩 */
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+    /* 粘性定位：滚动时固定在屏幕上 */
+    position: sticky;
+    top: 2rem;
+
+    /* 控制高度和内部滚动 */
+    max-height: calc(100vh - 4rem);
+    /* 最大高度为视窗高度减去上下边距 */
+    display: flex;
+    flex-direction: column;
+}
+
+.history-sidebar h3 {
+    margin-top: 0;
+    border-bottom: 2px solid #3f51b5;
+    padding-bottom: 0.5rem;
+    flex-shrink: 0;
+    /* 防止标题被压缩 */
+}
+
+#history-list {
+    flex-grow: 1;
+    /* 让历史列表区域占据所有剩余空间 */
+    overflow-y: auto;
+    /* 当内容超出时，只让列表区域滚动 */
+    margin: 1rem 0;
+}
+
+.history-item {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.history-item:last-child {
+    border-bottom: none;
+}
+
+.history-item .word {
+    font-weight: bold;
+}
+
+.history-item .meaning {
+    color: #666;
+    font-size: 0.9em;
+}
+
+#history-pagination {
+    flex-shrink: 0;
+    /* 防止分页控件被压缩 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0.75rem;
+    border-top: 1px solid #eee;
+}
+
+#history-pagination button {
+    padding: 0.5rem 1rem;
+    background-color: #5c6bc0;
+    font-size: 0.9rem;
+    min-width: auto;
+}
+
+#history-pagination button:hover {
+    background-color: #3f51b5;
+}
+
+#history-pagination button:disabled {
+    background-color: #ccc;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+#history-page-indicator {
+    font-size: 0.9em;
+    color: #555;
+    font-weight: 500;
+}
+
+
+/* --- iFrame 图谱样式 --- */
+#graph-iframe-wrapper {
+    background: white;
+    padding: 1.5rem 2rem 2rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+#graph-iframe-wrapper h3 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 1.1rem;
+}
+
+#word-graph-iframe {
+    width: 100%;
+    height: 600px;
+    /* 可以适当调大高度 */
+    border: 1px solid #eee;
+    border-radius: 6px;
+}
+
+
+/* --- 通用工具类 --- */
+.hidden {
+    display: none !important;
+}
