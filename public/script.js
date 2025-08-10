@@ -1,3 +1,5 @@
+// script.js
+
 document.addEventListener('DOMContentLoaded', () => {
     // --- 全局状态变量 ---
     let allWords = [];
@@ -97,15 +99,25 @@ document.addEventListener('DOMContentLoaded', () => {
     function toggleMeaning() {
         if (currentRoundWords.length === 0) return;
         meaningDisplay.classList.toggle('hidden');
+        
+        // 当显示释义时，将单词添加到历史记录
         if (!meaningDisplay.classList.contains('hidden')) {
             const currentWord = currentRoundWords[currentIndex];
-            history.forEach(item => {
-                if(item.word === currentWord.word) {
-                    history.delete(item);
-                }
-            });
-            history.add(currentWord);
-            historyCurrentPage = 1;
+            
+            // 查找历史记录中是否已存在该单词
+            const existingEntry = [...history].find(h => h.word === currentWord.word);
+
+            if (existingEntry) {
+                // 如果存在，先从Set中删除
+                history.delete(existingEntry);
+                // 再添加回来，这样它会更新到列表顶部，同时保留isMarked状态
+                history.add(existingEntry);
+            } else {
+                // 如果不存在，添加一个带有isMarked属性的新对象
+                history.add({ ...currentWord, isMarked: false });
+            }
+
+            historyCurrentPage = 1; // 重置到第一页以显示最新项
             updateHistoryView();
         }
     }
@@ -128,10 +140,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         pageItems.forEach(item => {
             const historyItem = document.createElement('div');
-            historyItem.className = 'history-item';
+            // 根据isMarked状态添加'marked'类
+            historyItem.className = `history-item ${item.isMarked ? 'marked' : ''}`;
+            
+            // 使用新的HTML结构，包含标记按钮
             historyItem.innerHTML = `
-                <div class="word">${item.word}</div>
-                <div class="meaning">${item.meaning}</div>
+                <div class="details">
+                    <div class="word">${item.word}</div>
+                    <div class="meaning">${item.meaning}</div>
+                </div>
+                <button class="mark-btn" data-word="${item.word}">
+                    ${item.isMarked ? '取消标记' : '标记'}
+                </button>
             `;
             historyList.appendChild(historyItem);
         });
@@ -176,6 +196,24 @@ document.addEventListener('DOMContentLoaded', () => {
         if (historyCurrentPage < totalPages) {
             historyCurrentPage++;
             updateHistoryView();
+        }
+    });
+
+    // 新增：使用事件委托处理标记按钮的点击
+    historyList.addEventListener('click', (e) => {
+        // 检查点击的是否是标记按钮
+        if (e.target.classList.contains('mark-btn')) {
+            const wordToToggle = e.target.dataset.word;
+            
+            // 在history Set中找到对应的单词对象
+            const entry = [...history].find(h => h.word === wordToToggle);
+            
+            if (entry) {
+                // 切换isMarked状态
+                entry.isMarked = !entry.isMarked;
+                // 重新渲染历史视图以反映变化
+                updateHistoryView();
+            }
         }
     });
 

@@ -159,23 +159,72 @@ button:disabled {
     margin: 1rem 0;
 }
 
+/* --- 学习记录项样式  --- */
 .history-item {
-    padding: 0.5rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0.5rem;
     border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s;
 }
 
 .history-item:last-child {
     border-bottom: none;
 }
 
+.history-item .details {
+    flex-grow: 1;
+}
+
 .history-item .word {
     font-weight: bold;
+    transition: color 0.2s;
+    /* 为颜色变化添加过渡 */
 }
 
 .history-item .meaning {
     color: #666;
     font-size: 0.9em;
 }
+
+.history-item.marked .word {
+    color: #c62828;
+    /* 标记后单词变红 */
+}
+
+/* 新增：标记按钮的样式 */
+.mark-btn {
+    padding: 0.25rem 0.6rem;
+    font-size: 0.8rem;
+    background-color: #78909c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    flex-shrink: 0;
+    /* 防止按钮被压缩 */
+    margin-left: 1rem;
+    /* 与左侧内容保持距离 */
+    min-width: auto;
+    /* 覆盖全局按钮的 min-width */
+}
+
+.mark-btn:hover {
+    background-color: #546e7a;
+}
+
+/* 已标记状态下按钮的样式 */
+.history-item.marked .mark-btn {
+    background-color: #ef5350;
+}
+
+.history-item.marked .mark-btn:hover {
+    background-color: #d32f2f;
+}
+
+/* --- 学习记录项样式结束 --- */
+
 
 #history-pagination {
     flex-shrink: 0;
